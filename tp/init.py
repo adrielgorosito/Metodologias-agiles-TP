@@ -1,9 +1,15 @@
 import unittest
 
-class Ahorcado():
-  palabra_correcta = "agiles"
-  # ['a', '', '', '']
+class Ahorcado:
+  palabra_correcta = ""
+  letras_incorrectas = []
+  estado_palabra = []
   vidas = 7
+
+  def __init__(self, palabra_correcta):
+    Ahorcado.palabra_correcta = palabra_correcta
+    for _ in palabra_correcta:
+      Ahorcado.estado_palabra.append("_")
   
   # Cuando la letra ingresada es correcta, retorna el lugar que ocupa en la palabra.
   # Cuando la letra ingresada es incorrecta, retorna False.
@@ -16,11 +22,13 @@ class Ahorcado():
     
     if letra not in self.palabra_correcta:
       self.vidas = self.vidas - 1
+      self.letras_incorrectas.append(letra)
       return False
     
     for i, letra_palabra in enumerate(self.palabra_correcta):
       if letra_palabra == letra:
         indices_letra.append(i+1)
+        self.estado_palabra[i] = letra_palabra
     
     return indices_letra
 
@@ -34,7 +42,7 @@ class Ahorcado():
 class AhorcadoTests(unittest.TestCase):
 
   def setUp(self):
-    self.ahorcado = Ahorcado()
+    self.ahorcado = Ahorcado('otorrinolaringologia')
   
   def test_ingresa_simbolo(self):
     self.assertFalse(self.ahorcado.ingresa_letra("*"))
@@ -50,21 +58,31 @@ class AhorcadoTests(unittest.TestCase):
   def test_ingresa_letra_erronea(self):
     self.assertFalse(self.ahorcado.ingresa_letra("B"))
 
-  # def test_ingresa_letra_correcta(self):
-  #   self.assertEqual(self.ahorcado.ingresa_letra("a"), True)
-
   def test_ingresa_palabra_erronea(self):
     self.assertFalse(self.ahorcado.ingresa_palabra("metodologias"))
 
   def test_ingresa_palabra_correcta(self):
-    self.assertTrue(self.ahorcado.ingresa_palabra("agiles"))
-
-  # def test_devuelve_posicion_letra_correcta(self):
-  #   self.assertEqual(self.ahorcado.ingresa_letra("e"), 5)
+    self.assertTrue(self.ahorcado.ingresa_palabra("otorrinolaringologia"))
 
   def test_devuelve_posiciones_letra_correcta(self):
-    self.assertEqual(self.ahorcado.ingresa_letra("e"), [5])
+    self.assertEqual(self.ahorcado.ingresa_letra("t"), [2])
 
+  def test_devuelve_posiciones_multiples_letra_correcta(self):
+    self.assertEqual(self.ahorcado.ingresa_letra("o"), [1, 3, 8, 15, 17])
 
+  def test_eastado_letras_incorrectas(self):
+    self.ahorcado.ingresa_letra("e")
+    self.ahorcado.ingresa_letra("u")
+    self.ahorcado.ingresa_letra("m")
+
+    self.assertEqual(self.ahorcado.letras_incorrectas, ["e", "u", "m"])
+
+  def test_devuelve_estado_palabra(self):
+    self.ahorcado.ingresa_letra("o")
+    self.ahorcado.ingresa_letra("r")
+    self.ahorcado.ingresa_letra("a")
+    
+    self.assertEqual(self.ahorcado.estado_palabra, ['o', '_', 'o', 'r', 'r', '_', '_', 'o', '_', 'a', 'r', '_', '_', '_', 'o', '_', 'o', '_', '_', 'a'])
+    
 if __name__ == '__main__':
     unittest.main()
