@@ -1,3 +1,17 @@
+# Política de puntuaciones - Reglas de negocio
+# Acierto de palabra entera
+
+## Cuando no hubo letras intentadas correctas: 1000 puntos
+### (cuando letras_incorrectas = 0 y estado_palabra = [_ _ _])
+## Cuando hubo letras intentadas correctas: 500 puntos
+### (plantear en un futuro tener en cuenta letras intentadas)
+
+# Acierto de una letra
+## La letra es correcta: 10 puntos
+## La letra es incorrecta: -10 puntos
+
+
+
 class Ahorcado:
   palabra_correcta = ""
   letras_incorrectas = []
@@ -6,7 +20,12 @@ class Ahorcado:
   puntaje_partida = 0
 
   def __init__(self, palabra_correcta):
+    # TODO: Al parecer hay que definir los atributos de la clase en el metodo __init__ sino
+    # toman los valores de otra inicialización.
+    
     self.palabra_correcta = palabra_correcta
+    self.estado_palabra = []
+
     for _ in palabra_correcta:
       self.estado_palabra.append("_")
   

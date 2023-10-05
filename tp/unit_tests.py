@@ -33,7 +33,7 @@ class AhorcadoTests(unittest.TestCase):
   def test_devuelve_posiciones_multiples_letra_correcta(self):
     self.assertEqual(self.ahorcado.ingresa_letra("o"), [1, 3, 8, 15, 17])
 
-  def test_estado_letras_incorrectas(self):
+  def test_checkea_letras_incorrectas(self):
     self.ahorcado.ingresa_letra("e")
     self.ahorcado.ingresa_letra("u")
     self.ahorcado.ingresa_letra("m")
@@ -44,14 +44,10 @@ class AhorcadoTests(unittest.TestCase):
     self.ahorcado.ingresa_letra("o")
     self.ahorcado.ingresa_letra("r")
     self.ahorcado.ingresa_letra("a")
-
-    print('&&&&&&')
-    print(self.ahorcado.estado_palabra)
     
     self.assertEqual(self.ahorcado.estado_palabra, ['o', '_', 'o', 'r', 'r', '_', '_', 'o', '_', 'a', 'r', '_', '_', '_', 'o', '_', 'o', '_', '_', 'a'])
 
   def test_aumenta_puntaje(self):
-    print(self.ahorcado.estado_palabra)
     self.ahorcado.ingresa_palabra("otorrinolaringologia")
     self.assertEqual(self.ahorcado.puntaje_partida, 100)
 
