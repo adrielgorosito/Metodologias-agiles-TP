@@ -16,5 +16,5 @@ jobs:
 
       - name: Run unit tests
         run: |
-          cd ./../tp
+          cd ./tp
           python unit_tests.py
