@@ -6,6 +6,6 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Correr tests unitarios
-        working-directory: tp
+        working-directory: ./../tp
         run: |
           python unit_tests.py
