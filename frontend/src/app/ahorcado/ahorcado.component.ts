@@ -41,6 +41,18 @@ export class AhorcadoComponent {
               this.letra.value!
             );
           });
+
+          const p = this.palabraConGuionesBajo
+            .split(' ')
+            .map((letraConGuion) =>
+              letraConGuion === '_' ? ' ' : letraConGuion
+            )
+            .join('');
+
+          if (p == this.palabra) {
+            this.vidas = 0;
+            this.gano = true;
+          }
         }
       },
       error: (error: any) => {
@@ -86,7 +98,6 @@ export class AhorcadoComponent {
   }
 
   reiniciar() {
-    // gano = false y todo eso
     localStorage.removeItem('palabra');
     this.router.navigate(['/jugar']);
   }
