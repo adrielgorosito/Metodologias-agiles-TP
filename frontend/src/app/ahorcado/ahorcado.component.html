@@ -1,4 +1,4 @@
-<div class="center-container">
+<div class="center-container" *ngIf="vidas > 0; else sinVidas">
   <form class="container">
     <table>
       <tr>
@@ -6,6 +6,34 @@
           <div>
             <label>Palabra:</label>
             <input type="text" [value]="this.palabraConGuionesBajo" disabled />
+          </div>
+        </th>
+      </tr>
+
+      <tr>
+        <th colspan="3">
+          <hr style="margin-top: 40px" />
+        </th>
+      </tr>
+
+      <br /><br />
+
+      <tr>
+        <th>
+          <div>
+            <label>Vidas restantes:</label>
+            <input type="text" [value]="this.vidas" disabled />
+          </div>
+        </th>
+      </tr>
+
+      <br /><br />
+
+      <tr>
+        <th>
+          <div>
+            <label>Letras erradas:</label>
+            <input type="text" [value]="letrasErradas.join(', ')" disabled />
           </div>
         </th>
       </tr>
@@ -38,3 +66,12 @@
     </div>
   </form>
 </div>
+
+<ng-template #sinVidas>
+  <div class="center-container">
+    <form class="container">
+      <p>Perdiste!</p>
+      <button (click)="reiniciar()">Volver a jugar</button>
+    </form>
+  </div>
+</ng-template>

@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { FormBuilder, FormControl, Validators } from '@angular/forms';
 import { AhorcadoService } from '../ahorcado.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-ahorcado',
@@ -8,7 +9,7 @@ import { AhorcadoService } from '../ahorcado.service';
   styleUrls: ['./ahorcado.component.css'],
 })
 export class AhorcadoComponent {
-  constructor(private as: AhorcadoService) {}
+  constructor(private as: AhorcadoService, private router: Router) {}
 
   letra = new FormControl('', Validators.required);
 
@@ -18,13 +19,19 @@ export class AhorcadoComponent {
     .join('')
     .split('')
     .join(' ');
+  vidas: number = 7;
+  letrasErradas: string[] = [];
 
   adivinarLetra() {
     const observer = {
       next: (resultado: any) => {
-        if (resultado === false)
-          console.log('La letra no se encuentra en la palabra.');
-        else {
+        if (
+          resultado === false &&
+          !this.letrasErradas.includes(this.letra.value!)
+        ) {
+          this.vidas--;
+          this.letrasErradas.push(this.letra.value!);
+        } else {
           resultado.forEach((posicion: number) => {
             this.palabraConGuionesBajo = this.actualizarPalabraConGuionesBajo(
               resultado,
@@ -37,8 +44,10 @@ export class AhorcadoComponent {
       error: (error: any) => {
         console.error('Error:', error);
       },
+      complete: () => {
+        this.letra.reset();
+      },
     };
-
     this.as.adivinarLetra(this.letra.value!).subscribe(observer);
   }
 
@@ -52,5 +61,10 @@ export class AhorcadoComponent {
       arrayPalabra[posicion - 1] = letra;
     });
     return arrayPalabra.join(' ');
+  }
+
+  reiniciar() {
+    localStorage.removeItem('palabra');
+    this.router.navigate(['/jugar']);
   }
 }
