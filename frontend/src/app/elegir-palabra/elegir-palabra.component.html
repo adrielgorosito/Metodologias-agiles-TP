@@ -1,0 +1,21 @@
+<div class="center-container">
+  <form class="container">
+    <table>
+      <tr>
+        <th>
+          <div>
+            <label>Palabra:</label>
+            <input type="password" [formControl]="palabra" />
+          </div>
+        </th>
+        <th>
+          <div align="center">
+            <button (click)="jugar()" [disabled]="palabra.value === ''">
+              Jugar
+            </button>
+          </div>
+        </th>
+      </tr>
+    </table>
+  </form>
+</div>

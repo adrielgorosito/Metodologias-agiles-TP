@@ -1,0 +1,40 @@
+<div class="center-container">
+  <form class="container">
+    <table>
+      <tr>
+        <th>
+          <div>
+            <label>Palabra:</label>
+            <input type="text" [value]="this.palabraConGuionesBajo" disabled />
+          </div>
+        </th>
+      </tr>
+
+      <br /><br />
+
+      <tr>
+        <th colspan="2">
+          <label>Letra:</label>
+          <input type="text" [formControl]="letra" maxlength="1" />
+        </th>
+        <th>
+          <div align="center">
+            <button (click)="adivinarLetra()">Adivinar</button>
+          </div>
+        </th>
+      </tr>
+    </table>
+
+    <div class="line-with-text">
+      <hr />
+      <span>o</span>
+      <hr />
+    </div>
+
+    <div>
+      <label>Arriesgar palabra:</label>
+      <input type="text" style="margin-right: 10px" />
+      <button>Arriesgar</button>
+    </div>
+  </form>
+</div>
