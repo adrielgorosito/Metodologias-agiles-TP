@@ -12,6 +12,8 @@ export class AhorcadoComponent {
   constructor(private as: AhorcadoService, private router: Router) {}
 
   letra = new FormControl('', Validators.required);
+  palabraArriesgada = new FormControl('', Validators.required);
+  gano: boolean = false;
 
   palabra = localStorage.getItem('palabra');
   palabraConGuionesBajo: string = this.palabra!.split('')
@@ -51,6 +53,26 @@ export class AhorcadoComponent {
     this.as.adivinarLetra(this.letra.value!).subscribe(observer);
   }
 
+  adivinarPalabra() {
+    const observer = {
+      next: (resultado: any) => {
+        if (resultado === true) {
+          this.gano = true;
+        } else {
+          this.gano = false;
+        }
+      },
+      error: (error: any) => {
+        console.error('Error:', error);
+      },
+      complete: () => {
+        this.vidas = 0;
+      },
+    };
+
+    this.as.adivinarPalabra(this.palabraArriesgada.value!).subscribe(observer);
+  }
+
   actualizarPalabraConGuionesBajo(
     posiciones: number[],
     cadena: string,
@@ -64,6 +86,7 @@ export class AhorcadoComponent {
   }
 
   reiniciar() {
+    // gano = false y todo eso
     localStorage.removeItem('palabra');
     this.router.navigate(['/jugar']);
   }

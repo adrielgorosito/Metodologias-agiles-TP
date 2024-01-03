@@ -18,4 +18,8 @@ export class AhorcadoService {
   public adivinarLetra(letra: string): Observable<any> {
     return this.http.get<any>(`${this.apiAhorcado}/adivina_letra/${letra}`);
   }
+
+  public adivinarPalabra(palabra: string): Observable<any> {
+    return this.http.get<any>(`${this.apiAhorcado}/adivina_palabra/${palabra}`);
+  }
 }

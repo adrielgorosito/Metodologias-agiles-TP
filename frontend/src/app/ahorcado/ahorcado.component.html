@@ -1,4 +1,4 @@
-<div class="center-container" *ngIf="vidas > 0; else sinVidas">
+<div class="center-container" *ngIf="vidas > 0 && gano == false; else sinVidas">
   <form class="container">
     <table>
       <tr>
@@ -61,16 +61,32 @@
 
     <div>
       <label>Arriesgar palabra:</label>
-      <input type="text" style="margin-right: 10px" />
-      <button>Arriesgar</button>
+      <input
+        type="text"
+        style="margin-right: 10px"
+        [formControl]="palabraArriesgada"
+      />
+      <button (click)="adivinarPalabra()">Arriesgar</button>
     </div>
   </form>
 </div>
 
 <ng-template #sinVidas>
-  <div class="center-container">
+  <div class="center-container" *ngIf="vidas == 0 && gano == false; else exito">
     <form class="container">
       <p>Perdiste!</p>
+      <p>
+        La palabra era: <b>{{ this.palabra }}</b>
+      </p>
+      <button (click)="reiniciar()">Volver a jugar</button>
+    </form>
+  </div>
+</ng-template>
+
+<ng-template #exito>
+  <div class="center-container">
+    <form class="container">
+      <p>Ganaste!</p>
       <button (click)="reiniciar()">Volver a jugar</button>
     </form>
   </div>
