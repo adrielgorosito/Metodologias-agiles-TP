@@ -1,0 +1,50 @@
+.center-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+  font-family: arial;
+}
+
+.container {
+  background-color: rgba(245, 245, 245, 0.8);
+  border-radius: 8px;
+  box-shadow: 0 4px 8px #868686;
+  padding: 20px;
+}
+
+.form-group {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  align-items: center;
+  margin-bottom: 15px;
+}
+
+input:disabled {
+  background-color: rgb(238, 238, 238);
+  cursor: not-allowed;
+}
+
+label {
+  padding-right: 10px;
+}
+
+.line-with-text {
+  display: flex;
+  align-items: center;
+  text-align: center;
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
+
+.line-with-text hr {
+  flex: 1;
+  border: none;
+  height: 1px;
+  background-color: black;
+}
+
+.line-with-text span {
+  padding: 0 10px;
+}

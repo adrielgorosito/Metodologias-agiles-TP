@@ -1,0 +1,93 @@
+<div class="center-container" *ngIf="vidas > 0 && gano == false; else sinVidas">
+  <form class="container">
+    <table>
+      <tr>
+        <th>
+          <div>
+            <label>Palabra:</label>
+            <input type="text" [value]="this.palabraConGuionesBajo" disabled />
+          </div>
+        </th>
+      </tr>
+
+      <tr>
+        <th colspan="3">
+          <hr style="margin-top: 40px" />
+        </th>
+      </tr>
+
+      <br /><br />
+
+      <tr>
+        <th>
+          <div>
+            <label>Vidas restantes:</label>
+            <input type="text" [value]="this.vidas" disabled />
+          </div>
+        </th>
+      </tr>
+
+      <br /><br />
+
+      <tr>
+        <th>
+          <div>
+            <label>Letras erradas:</label>
+            <input type="text" [value]="letrasErradas.join(', ')" disabled />
+          </div>
+        </th>
+      </tr>
+
+      <br /><br />
+
+      <tr>
+        <th colspan="2">
+          <label>Letra:</label>
+          <input type="text" [formControl]="letra" maxlength="1" />
+        </th>
+        <th>
+          <div align="center">
+            <button (click)="adivinarLetra()">Adivinar</button>
+          </div>
+        </th>
+      </tr>
+    </table>
+
+    <div class="line-with-text">
+      <hr />
+      <span>o</span>
+      <hr />
+    </div>
+
+    <div>
+      <label>Arriesgar palabra:</label>
+      <input
+        type="text"
+        style="margin-right: 10px"
+        [formControl]="palabraArriesgada"
+      />
+      <button (click)="adivinarPalabra()">Arriesgar</button>
+    </div>
+  </form>
+</div>
+
+<ng-template #sinVidas>
+  <div class="center-container" *ngIf="vidas == 0 && gano == false; else exito">
+    <form class="container">
+      <p>Perdiste!</p>
+      <p>
+        La palabra era: <b>{{ this.palabra }}</b>
+      </p>
+      <button (click)="reiniciar()">Volver a jugar</button>
+    </form>
+  </div>
+</ng-template>
+
+<ng-template #exito>
+  <div class="center-container">
+    <form class="container">
+      <p>Ganaste!</p>
+      <button (click)="reiniciar()">Volver a jugar</button>
+    </form>
+  </div>
+</ng-template>

@@ -15,6 +15,6 @@ jobs:
           python-version: 3.8
 
       - name: Run unit tests
-        working-directory: agiles-utn-2023/tp
         run: |
+          cd ./tp
           python unit_tests.py
