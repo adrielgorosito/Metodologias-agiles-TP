@@ -1,0 +1,4 @@
+*.pyc
+*/.coverage
+*/.DS_Store
+tp/__pycache__/ahorcado.cpython-311.pyc
