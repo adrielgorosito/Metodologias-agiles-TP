@@ -28,3 +28,4 @@ jobs:
         run: |
           cd ./tp
           coverage run unit_tests.py
+          coverage report
