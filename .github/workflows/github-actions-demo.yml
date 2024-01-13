@@ -14,7 +14,17 @@ jobs:
         with:
           python-version: 3.8
 
+      - name: Install Python dependencies
+        uses: py-actions/py-dependency-install@v4
+        with:
+          path: "tp/requirements.txt"
+
       - name: Run unit tests
         run: |
           cd ./tp
           python unit_tests.py
+
+      - name: Run unit tests coverage
+        run: |
+          cd ./tp
+          coverage run unit_tests.py
