@@ -1,3 +1,5 @@
 coverage
 selenium
 python-dotenv
+fastapi
+uvicorn[standard]
