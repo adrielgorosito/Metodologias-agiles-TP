@@ -1,7 +1,7 @@
 from typing import Union
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
-from tp.ahorcado import Ahorcado
+from ahorcado import Ahorcado
 # from tp.ahorcado import obtener_saludo
 
 
