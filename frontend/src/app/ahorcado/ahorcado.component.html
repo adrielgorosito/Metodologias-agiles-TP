@@ -5,7 +5,7 @@
         <th>
           <div>
             <label>Palabra:</label>
-            <input type="text" id="palabraConGuionesBajo" [value]="this.palabraConGuionesBajo" disabled />
+            <input type="text" name="palabra-con-guiones" [value]="this.palabraConGuionesBajo" disabled />
           </div>
         </th>
       </tr>
@@ -33,7 +33,7 @@
         <th>
           <div>
             <label>Letras erradas:</label>
-            <input type="text" [value]="letrasIncorrectas" disabled />
+            <input type="text" name="letras-incorrectas" [value]="letrasIncorrectas" disabled />
           </div>
         </th>
       </tr>
@@ -43,11 +43,11 @@
       <tr>
         <th colspan="2">
           <label>Letra:</label>
-          <input type="text" [formControl]="letra" maxlength="1" />
+          <input type="text" name="letra-input" [formControl]="letra" maxlength="1" />
         </th>
         <th>
           <div align="center">
-            <button (click)="adivinarLetra()">Adivinar</button>
+            <button (click)="adivinarLetra()" name="adivinar-letra">Adivinar</button>
           </div>
         </th>
       </tr>
