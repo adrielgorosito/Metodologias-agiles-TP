@@ -14,8 +14,14 @@ export class AhorcadoComponent {
   letra = new FormControl('', Validators.required);
   palabraArriesgada = new FormControl('', Validators.required);
   gano: boolean = false;
+  palabra: string = '';
 
-  palabra = localStorage.getItem('palabra');
+  ngOnInit(): void {
+    this.as.getPalabra().subscribe((resultado: string) => {
+      this.palabra = resultado;
+    });
+  }
+
   palabraConGuionesBajo: string = this.palabra!.split('')
     .map(() => '_')
     .join('')
@@ -98,7 +104,8 @@ export class AhorcadoComponent {
   }
 
   reiniciar() {
-    localStorage.removeItem('palabra');
-    this.router.navigate(['/jugar']);
+    this.as.setPalabra(null).subscribe((resultado: string) => {
+      this.router.navigate(['/jugar']);
+    });
   }
 }

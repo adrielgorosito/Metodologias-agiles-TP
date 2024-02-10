@@ -11,7 +11,7 @@ export class AhorcadoService {
 
   private apiAhorcado = 'http://127.0.0.1:8000';
 
-  public setPalabra(palabra: string): Observable<any> {
+  public setPalabra(palabra: string | null): Observable<any> {
     return this.http.get<any>(`${this.apiAhorcado}/ingresa_palabra/${palabra}`);
   }
 
@@ -21,5 +21,21 @@ export class AhorcadoService {
 
   public adivinarPalabra(palabra: string): Observable<any> {
     return this.http.get<any>(`${this.apiAhorcado}/adivina_palabra/${palabra}`);
+  }
+
+  public getPalabra(): Observable<any> {
+    return this.http.get<any>(`${this.apiAhorcado}/get_palabra`);
+  }
+
+  public getVidas(): Observable<any> {
+    return this.http.get<any>(`${this.apiAhorcado}/get_vidas`);
+  }
+
+  public getEstado(): Observable<any> {
+    return this.http.get<any>(`${this.apiAhorcado}/get_estado`);
+  }
+
+  public getLetrasIncorrectas(): Observable<any> {
+    return this.http.get<any>(`${this.apiAhorcado}/get_letras_incorrectas`);
   }
 }

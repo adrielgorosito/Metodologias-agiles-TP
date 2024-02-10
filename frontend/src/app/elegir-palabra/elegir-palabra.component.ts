@@ -16,7 +16,6 @@ export class ElegirPalabraComponent {
   jugar() {
     const observer = {
       next: (resultado: any) => {
-        localStorage.setItem('palabra', this.palabra.value!);
         this.router.navigate(['/ahorcado']);
       },
       error: (error: any) => {
