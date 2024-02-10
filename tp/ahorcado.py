@@ -37,8 +37,8 @@ class Ahorcado:
   # Cuando la palabra ingresada es la correcta, retorna True.
   # Cuando la palabra ingresada es la incorrecta, retorna False.
   def ingresa_palabra(self, palabra):
-    if palabra != self.palabra_correcta:
-      self.vidas = 0
-      return False
+    self.vidas = 0
     
+    if palabra != self.palabra_correcta:
+      return False
     return True
