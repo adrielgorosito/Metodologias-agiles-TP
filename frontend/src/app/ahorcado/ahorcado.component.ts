@@ -15,97 +15,49 @@ export class AhorcadoComponent {
   palabraArriesgada = new FormControl('', Validators.required);
   gano: boolean = false;
   palabra: string = '';
+  palabraConGuionesBajo: string = '';
+  vidas: number = 7;
+  letrasIncorrectas: string = '';
 
   ngOnInit(): void {
-    this.as.getPalabra().subscribe((resultado: string) => {
-      this.palabra = resultado;
-    });
+    this.as.getPalabra().subscribe((p: string) => this.palabra = p);
+    this.as.getEstado().subscribe((p: string[]) => this.palabraConGuionesBajo = p.join(' '));
   }
-
-  palabraConGuionesBajo: string = this.palabra!.split('')
-    .map(() => '_')
-    .join('')
-    .split('')
-    .join(' ');
-  vidas: number = 7;
-  letrasErradas: string[] = [];
 
   adivinarLetra() {
     const observer = {
       next: (resultado: any) => {
-        if (
-          resultado === false &&
-          !this.letrasErradas.includes(this.letra.value!)
-        ) {
-          this.vidas--;
-          this.letrasErradas.push(this.letra.value!);
+        if (resultado === false && !this.letrasIncorrectas.includes(this.letra.value!)) {
+          this.as.getVidas().subscribe((vidas: number) => this.vidas = vidas);
+          this.as.getLetrasIncorrectas().subscribe((letras: string[]) => this.letrasIncorrectas = letras.join(' '));
         } else {
-          resultado.forEach((posicion: number) => {
-            this.palabraConGuionesBajo = this.actualizarPalabraConGuionesBajo(
-              resultado,
-              this.palabraConGuionesBajo,
-              this.letra.value!
-            );
+          this.as.getEstado().subscribe((estado: string[]) => {
+            this.palabraConGuionesBajo = estado.join(' ');
+            const p = this.palabraConGuionesBajo.split(' ').map((c) => c === '_' ? ' ' : c).join('');
+            
+            if (p == this.palabra) {
+              this.vidas = 0;
+              this.gano = true;
+            }
           });
-
-          const p = this.palabraConGuionesBajo
-            .split(' ')
-            .map((letraConGuion) =>
-              letraConGuion === '_' ? ' ' : letraConGuion
-            )
-            .join('');
-
-          if (p == this.palabra) {
-            this.vidas = 0;
-            this.gano = true;
-          }
         }
       },
-      error: (error: any) => {
-        console.error('Error:', error);
-      },
-      complete: () => {
-        this.letra.reset();
-      },
+      complete: () => this.letra.reset(),
     };
+
     this.as.adivinarLetra(this.letra.value!).subscribe(observer);
   }
 
   adivinarPalabra() {
     const observer = {
-      next: (resultado: any) => {
-        if (resultado === true) {
-          this.gano = true;
-        } else {
-          this.gano = false;
-        }
-      },
-      error: (error: any) => {
-        console.error('Error:', error);
-      },
-      complete: () => {
-        this.vidas = 0;
-      },
+      next: (resultado: any) => resultado === true ? this.gano = true : this.gano = false,
+      complete: () => this.vidas = 0,
     };
 
     this.as.adivinarPalabra(this.palabraArriesgada.value!).subscribe(observer);
   }
 
-  actualizarPalabraConGuionesBajo(
-    posiciones: number[],
-    cadena: string,
-    letra: string
-  ): string {
-    const arrayPalabra = cadena.split(' ');
-    posiciones.forEach((posicion: number) => {
-      arrayPalabra[posicion - 1] = letra;
-    });
-    return arrayPalabra.join(' ');
-  }
-
   reiniciar() {
-    this.as.setPalabra(null).subscribe((resultado: string) => {
-      this.router.navigate(['/jugar']);
-    });
+    this.as.setPalabra(null).subscribe(() => this.router.navigate(['/jugar']));
   }
 }
