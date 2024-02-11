@@ -3,6 +3,7 @@ from selenium import webdriver
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
+from selenium.webdriver.chrome.options import Options
 
 import os
 from dotenv import load_dotenv
@@ -10,9 +11,10 @@ load_dotenv()
 
 @given('requerimientos')
 def requerimientos(context):
-    context.driver = webdriver.Chrome()
-    context.host = os.getenv('FE_PROJECT_URL')
-    context.driver.get(context.host)
+    options = webdriver.ChromeOptions()
+    options.add_argument('--headless')
+    context.driver = webdriver.Chrome(options=options)
+    context.driver.get(os.getenv('FE_PROJECT_URL'))
 
 @given('ingreso la palabra "{word}"')
 def ingresar_palabra(context, word):
