@@ -55,4 +55,3 @@ jobs:
         run: |
           cd tp
           behave -f allure_behave.formatter:AllureFormatter -o at_results ./features
-          allure generate at_results -o allure-report
