@@ -33,7 +33,7 @@ def obtener_cantidad_guiones(context):
     assert len(value_of_underscores) == len(context.palabra), "Error, la cantidad de guiones bajos no coinciden"
 
 
-@when('intento la letra correcta "{letter}"')
+@when('intento la letra "{letter}"')
 def intentar_adivinar_letra(context, letter):
     WebDriverWait(context.driver, 5).until(EC.presence_of_element_located((By.NAME, "letra-input")))
     input_letter = context.driver.find_element(By.NAME, "letra-input")
@@ -48,3 +48,18 @@ def verificar_letra_revelada(context):
     underscores = context.driver.find_element(By.NAME, "palabra-con-guiones")
     word = underscores.get_attribute("value").replace(" ", "")
     assert context.letter in word, f"Error, la letra correcta no está en la palabra"
+
+@then('la cantidad de vidas debería ser "{lives}"')
+def verificar_letra_revelada(context, lives):
+    WebDriverWait(context.driver, 5).until(EC.presence_of_element_located((By.NAME, "vidas")))
+    remaining_lives = context.driver.find_element(By.NAME, "vidas").get_attribute("value")
+    assert lives == remaining_lives, f"Error, la cantidad de vidas es errónea"
+
+
+@then('debería ver la letra en la letras incorrectas')
+def verificar_letra_revelada(context):
+    WebDriverWait(context.driver, 5).until(EC.presence_of_element_located((By.NAME, "letras-incorrectas")))
+    incorrect_letters = context.driver.find_element(By.NAME, "letras-incorrectas")
+    letters = incorrect_letters.get_attribute("value").replace(" ", "")
+    assert context.letter in letters, f"Error, la letra incorrecta no está en las letras incorrectas"
+
