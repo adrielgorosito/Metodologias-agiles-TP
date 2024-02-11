@@ -14,18 +14,45 @@ jobs:
         with:
           python-version: 3.8
 
-      - name: Install Python dependencies
+      - name: Install dependencies
         uses: py-actions/py-dependency-install@v4
         with:
           path: "tp/requirements.txt"
 
-      - name: Run unit tests
+      - name: Install Angular CLI and dependencies
         run: |
-          cd ./tp
-          python unit_tests.py
+          cd frontend
+          npm install -g @angular/cli
+          npm install
 
-      - name: Run unit tests coverage
+      - name: Download ChromeDriver
+        run: |
+          wget https://edgedl.me.gvt1.com/edgedl/chrome/chrome-for-testing/119.0.6045.159/linux64/chromedriver-linux64.zip
+          unzip chromedriver-linux64.zip
+          chmod +x chromedriver-linux64
+      
+      - name: Start frontend
+        run: |
+          sudo apt --fix-broken install
+          sudo apt-get update && sudo apt-get install -y curl
+          cd frontend
+          ng serve --host 0.0.0.0 &
+          for attempt in {1..40}; do sleep 1; if curl -s http://localhost:4200 >/dev/null; then echo ready; break; fi; echo waiting...; done 
+      
+      - name: Start backend
+        run: |
+          cd tp
+          uvicorn main:app --reload &
+          for attempt in {1..20}; do sleep 1; if curl -s http://localhost:8000 >/dev/null; then echo ready; break; fi; echo waiting...; done 
+
+      - name: Run unit tests with coverage
         run: |
           cd ./tp
           coverage run unit_tests.py
           coverage report
+      
+      - name: Run Acceptance tests
+        run: |
+          cd tp
+          behave -f allure_behave.formatter:AllureFormatter -o at_results ./features
+          allure generate at_results -o allure-report
