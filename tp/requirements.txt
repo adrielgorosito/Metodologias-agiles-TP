@@ -1,5 +1,7 @@
-coverage
-selenium
 python-dotenv
 fastapi
 uvicorn[standard]
+coverage
+selenium
+behave
+allure-behave
