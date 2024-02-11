@@ -61,8 +61,8 @@
 
     <div>
       <label>Arriesgar palabra:</label>
-      <input type="text" name="arriesgar-palabra" style="margin-right: 10px" [formControl]="palabraArriesgada"/>
-      <button (click)="adivinarPalabra()">Arriesgar</button>
+      <input type="text" name="input-arriesgar" style="margin-right: 10px" [formControl]="palabraArriesgada"/>
+      <button name="arriesgar-palabra" (click)="adivinarPalabra()">Arriesgar</button>
     </div>
   </form>
 </div>
@@ -70,8 +70,8 @@
 <ng-template #sinVidas>
   <div class="center-container" *ngIf="vidas == 0 && gano == false; else exito">
     <form class="container">
-      <p>Perdiste!</p>
-      <p name="derrota">La palabra era: <b>{{ this.palabra }}</b></p>
+      <p name="mensaje">Perdiste!</p>
+      <p>La palabra era: <b>{{ this.palabra }}</b></p>
       <button (click)="reiniciar()">Volver a jugar</button>
     </form>
   </div>
@@ -80,7 +80,7 @@
 <ng-template #exito>
   <div class="center-container">
     <form class="container">
-      <p name="victoria">Ganaste!</p>
+      <p name="mensaje">Ganaste!</p>
       <button (click)="reiniciar()">Volver a jugar</button>
     </form>
   </div>
