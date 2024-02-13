@@ -38,3 +38,7 @@ input:disabled {
 label {
   padding-right: 10px;
 }
+
+.secret {
+  -webkit-text-security: disc;
+}
