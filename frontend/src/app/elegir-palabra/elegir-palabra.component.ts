@@ -11,18 +11,18 @@ import { Router } from '@angular/router';
 export class ElegirPalabraComponent {
   constructor(private as: AhorcadoService, private router: Router) {}
 
-  palabra = new FormControl('', Validators.required);
+  palabra = new FormControl('', [Validators.required, Validators.pattern(/^[A-Za-z]+$/)]);
 
   jugar() {
     const observer = {
-      next: (resultado: any) => {
-        this.router.navigate(['/ahorcado']);
-      },
-      error: (error: any) => {
-        console.error('Error:', error);
-      },
+      next: () => this.router.navigate(['/ahorcado']),
+      error: () => alert("Error: tienes que ingresar una palabra."),
     };
 
-    this.as.setPalabra(this.palabra.value!).subscribe(observer);
+    if (this.palabra.value!.length > 16)
+      alert("La palabra debe ser de 16 caracteres o menos");
+    else {
+      this.as.setPalabra(this.palabra.value!.toLowerCase()).subscribe(observer);
+    }
   }
 }

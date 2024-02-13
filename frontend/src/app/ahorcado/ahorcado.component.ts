@@ -22,6 +22,8 @@ export class AhorcadoComponent {
   ngOnInit(): void {
     this.as.getPalabra().subscribe((p: string) => this.palabra = p);
     this.as.getEstado().subscribe((p: string[]) => this.palabraConGuionesBajo = p.join(' '));
+    this.as.getVidas().subscribe((vidas: number) => this.vidas = vidas);
+    this.as.getLetrasIncorrectas().subscribe((letras: string[]) => this.letrasIncorrectas = letras.join(' '));
   }
 
   adivinarLetra() {
@@ -45,7 +47,7 @@ export class AhorcadoComponent {
       complete: () => this.letra.reset(),
     };
 
-    this.as.adivinarLetra(this.letra.value!).subscribe(observer);
+    this.as.adivinarLetra(this.letra.value!.toLowerCase()).subscribe(observer);
   }
 
   adivinarPalabra() {
@@ -54,7 +56,7 @@ export class AhorcadoComponent {
       complete: () => this.vidas = 0,
     };
 
-    this.as.adivinarPalabra(this.palabraArriesgada.value!).subscribe(observer);
+    this.as.adivinarPalabra(this.palabraArriesgada.value!.toLowerCase()).subscribe(observer);
   }
 
   reiniciar() {
