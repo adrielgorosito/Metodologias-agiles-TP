@@ -1,8 +1,8 @@
-name: GitHub Actions Demo
-run-name: ${{ github.actor }} está corriendo los tests unitarios usando GitHub Actions 🚀
+name: main
+run-name: ${{ github.actor }} está corriendo los tests unitarios y de aceptación con Github Actions 🚀
 on: [push]
 jobs:
-  Explore-GitHub-Actions:
+  build:
     runs-on: ubuntu-latest
 
     steps:
