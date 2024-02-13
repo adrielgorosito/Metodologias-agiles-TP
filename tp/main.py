@@ -14,34 +14,35 @@ app.add_middleware(
 )
 
 juego_ahorcado = None
+ERROR_PARTIDA = "Debe iniciar una partida"
 
 @app.get("/get_palabra/")
 def get_palabra():
     if juego_ahorcado is not None:
         return juego_ahorcado.palabra_correcta
     else:
-        return {"error": "Debe iniciar una partida"}
+        return {"error": ERROR_PARTIDA}
     
 @app.get("/get_vidas/")
 def get_vidas():
     if juego_ahorcado is not None:
         return juego_ahorcado.vidas
     else:
-        return {"error": "Debe iniciar una partida"}
+        return {"error": ERROR_PARTIDA}
     
 @app.get("/get_estado/")
 def get_estado():
     if juego_ahorcado is not None:
         return juego_ahorcado.estado_palabra
     else:
-        return {"error": "Debe iniciar una partida"}
+        return {"error": ERROR_PARTIDA}
     
 @app.get("/get_letras_incorrectas/")
 def get_letras_incorrectas():
     if juego_ahorcado is not None:
         return juego_ahorcado.letras_incorrectas
     else:
-        return {"error": "Debe iniciar una partida"}
+        return {"error": ERROR_PARTIDA}
 
 @app.get("/ingresa_palabra/{palabra}")
 def ingresa_palabra(palabra):

@@ -18,8 +18,8 @@ def requerimientos(context):
 
 @given('ingreso la palabra "{word}"')
 def ingresar_palabra(context, word):
-    input = context.driver.find_element(By.NAME, "palabra-input")
-    input.send_keys(word)
+    input_word = context.driver.find_element(By.NAME, "palabra-input")
+    input_word.send_keys(word)
     context.palabra = word
     submit_button = context.driver.find_element(By.TAG_NAME, "button")
     submit_button.click()
@@ -47,14 +47,14 @@ def verificar_letra_revelada(context):
     WebDriverWait(context.driver, 5).until(EC.presence_of_element_located((By.NAME, "palabra-con-guiones")))
     underscores = context.driver.find_element(By.NAME, "palabra-con-guiones")
     word = underscores.get_attribute("value").replace(" ", "")
-    assert context.letter in word, f"Error, la letra correcta no está en la palabra"
+    assert context.letter in word, "Error, la letra correcta no está en la palabra"
 
 @then('la cantidad de vidas debería ser "{lives}"')
 def verificar_cantidad_vidas(context, lives):
     time.sleep(5)
     WebDriverWait(context.driver, 5).until(EC.presence_of_element_located((By.NAME, "vidas")))
     remaining_lives = context.driver.find_element(By.NAME, "vidas").get_attribute("value")
-    assert lives == remaining_lives, f"Error, la cantidad de vidas es errónea"
+    assert lives == remaining_lives, "Error, la cantidad de vidas es errónea"
 
 @then('debería ver la letra en la letras incorrectas')
 def verificar_letra_incorrecta(context):
@@ -62,7 +62,7 @@ def verificar_letra_incorrecta(context):
     WebDriverWait(context.driver, 5).until(EC.presence_of_element_located((By.NAME, "letras-incorrectas")))
     incorrect_letters = context.driver.find_element(By.NAME, "letras-incorrectas")
     letters = incorrect_letters.get_attribute("value").replace(" ", "")
-    assert context.letter in letters, f"Error, la letra incorrecta no está en las letras incorrectas"
+    assert context.letter in letters, "Error, la letra incorrecta no está en las letras incorrectas"
 
 @when('arriesgo la palabra "{word}"')
 def arriesgar_palabra(context, word):
@@ -76,4 +76,4 @@ def arriesgar_palabra(context, word):
 def ver_mensaje_cartel(context, message):
     WebDriverWait(context.driver, 5).until(EC.presence_of_element_located((By.NAME, "mensaje")))
     msg = context.driver.find_element(By.NAME, "mensaje").text
-    assert message == msg, f"Error, el mensaje es incorrecto"
+    assert message == msg, "Error, el mensaje es incorrecto"

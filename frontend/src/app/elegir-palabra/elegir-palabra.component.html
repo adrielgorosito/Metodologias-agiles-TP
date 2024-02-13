@@ -1,6 +1,6 @@
 <div class="center-container">
   <form class="container">
-    <table>
+    <table summary="Elección de palabra">
       <tr>
         <th>
           <div>
@@ -9,7 +9,7 @@
           </div>
         </th>
         <th>
-          <div align="center">
+          <div style="text-align: center">
             <button (click)="jugar()" [disabled]="palabra.value === '' || !palabra.valid">
               Jugar
             </button>
