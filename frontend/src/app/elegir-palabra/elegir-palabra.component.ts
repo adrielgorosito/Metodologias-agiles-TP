@@ -15,14 +15,12 @@ export class ElegirPalabraComponent {
 
   jugar() {
     const observer = {
-      next: (resultado: any) => {
-        this.router.navigate(['/ahorcado']);
-      },
-      error: (error: any) => {
-        console.error('Error:', error);
-      },
+      next: () => this.router.navigate(['/ahorcado']),
+      error: () => alert("Error: tienes que ingresar una palabra."),
     };
 
-    this.as.setPalabra(this.palabra.value!).subscribe(observer);
+    if (this.palabra.value != "") {
+      this.as.setPalabra(this.palabra.value!.toLowerCase()).subscribe(observer);
+    }
   }
 }
