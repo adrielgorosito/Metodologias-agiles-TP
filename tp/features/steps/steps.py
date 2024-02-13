@@ -4,7 +4,7 @@ from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.chrome.options import Options
-
+import time
 import os
 from dotenv import load_dotenv
 load_dotenv()
@@ -26,6 +26,7 @@ def ingresar_palabra(context, word):
 
 @then('debería ver la palabra con la misma cantidad de guiones bajos que letras')
 def obtener_cantidad_guiones(context):
+    time.sleep(5)
     WebDriverWait(context.driver, 5).until(EC.presence_of_element_located((By.NAME, "palabra-con-guiones")))
     underscores = context.driver.find_element(By.NAME, "palabra-con-guiones")
     value_of_underscores = underscores.get_attribute("value").replace(" ", "")
@@ -42,6 +43,7 @@ def intentar_adivinar_letra(context, letter):
 
 @then('debería ver la letra revelada en la palabra')
 def verificar_letra_revelada(context):
+    time.sleep(5)
     WebDriverWait(context.driver, 5).until(EC.presence_of_element_located((By.NAME, "palabra-con-guiones")))
     underscores = context.driver.find_element(By.NAME, "palabra-con-guiones")
     word = underscores.get_attribute("value").replace(" ", "")
@@ -49,12 +51,14 @@ def verificar_letra_revelada(context):
 
 @then('la cantidad de vidas debería ser "{lives}"')
 def verificar_cantidad_vidas(context, lives):
+    time.sleep(5)
     WebDriverWait(context.driver, 5).until(EC.presence_of_element_located((By.NAME, "vidas")))
     remaining_lives = context.driver.find_element(By.NAME, "vidas").get_attribute("value")
     assert lives == remaining_lives, f"Error, la cantidad de vidas es errónea"
 
 @then('debería ver la letra en la letras incorrectas')
 def verificar_letra_incorrecta(context):
+    time.sleep(5)
     WebDriverWait(context.driver, 5).until(EC.presence_of_element_located((By.NAME, "letras-incorrectas")))
     incorrect_letters = context.driver.find_element(By.NAME, "letras-incorrectas")
     letters = incorrect_letters.get_attribute("value").replace(" ", "")

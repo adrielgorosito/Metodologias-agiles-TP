@@ -9,7 +9,7 @@ import { Observable } from 'rxjs';
 export class AhorcadoService {
   constructor(private http: HttpClient, private router: Router) {}
 
-  private apiAhorcado = 'http://127.0.0.1:8000';
+  private apiAhorcado = 'https://agiles-utn-2023.onrender.com';
 
   public setPalabra(palabra: string | null): Observable<any> {
     return this.http.get<any>(`${this.apiAhorcado}/ingresa_palabra/${palabra}`);
