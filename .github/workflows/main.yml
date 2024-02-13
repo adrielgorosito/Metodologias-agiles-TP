@@ -1,0 +1,37 @@
+name: main
+run-name: ${{ github.actor }} está corriendo los tests unitarios y de aceptación con Github Actions 🚀
+on: [push]
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      - name: Set up Python
+        uses: actions/setup-python@v2
+        with:
+          python-version: 3.8
+
+      - name: Install dependencies
+        uses: py-actions/py-dependency-install@v4
+        with:
+          path: "tp/requirements.txt"
+
+      - name: Download ChromeDriver
+        run: |
+          wget https://edgedl.me.gvt1.com/edgedl/chrome/chrome-for-testing/119.0.6045.159/linux64/chromedriver-linux64.zip
+          unzip chromedriver-linux64.zip
+          chmod +x chromedriver-linux64
+
+      - name: Run unit tests (UT)
+        run: |
+          cd ./tp
+          coverage run unit_tests.py
+          coverage report
+      
+      - name: Run acceptance tests (AT)
+        run: |
+          cd tp
+          behave -f allure_behave.formatter:AllureFormatter -o at_results ./features
