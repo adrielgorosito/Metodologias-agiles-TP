@@ -59,10 +59,10 @@ Alternativamente, se puede jugar visitando la página: <a href = "https://metodo
 ## Detalles
 * El backend fue programado con **Python**, utilizando el framework **FastAPI**. El frontend se programó con **Angular**.
 * Se utilizó el framework **unittest** de Python para desarrollar los tests unitarios.
-* Se eligió **Github Actions** como servidor de integración continua.
 * Se utilizó el framework **Cucumber** junto a **behave** y el lenguaje **Gherkin** para desarrollar los tests de aceptación.
+* Se eligió **Github Actions** como servidor de integración continua para automatizar los UT y AT.
 * Se utilizó **Render** para el deploy del backend y **Vercel** para el deploy del frontend.
-* ~~Se utilizó **SonarQube** para el análisis estático de código~~
+* Se utilizó **SonarQube** para el análisis estático de código.
 
 ## Ejecutar Unit tests
 1. Navegar a la carpeta tp.
