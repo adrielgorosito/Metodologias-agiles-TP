@@ -10,7 +10,7 @@ El objetivo del juego es adivinar una palabra oculta antes de que se completen t
 * Al acertar una letra, revela las posiciones dentro de la palabra.
 * Al errar una letra, suma una parte del cuerpo del ahorcado, hasta un máximo de siete partes.
 * El jugador gana si adivina todas las letras o si arriesga correctamente la palabra.
-* El jugador pierde si completa todas las partes del cuerpo del ahorcado.
+* El jugador pierde si completa todas las partes del cuerpo del ahorcado...
 
 ## Imágenes
 Debido a que el objeto principal del trabajo práctico es aplicar metodologías ágiles, se desarrolló tanto un backend como un frontend sencillos.
