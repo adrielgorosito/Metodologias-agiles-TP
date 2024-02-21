@@ -23,7 +23,7 @@ class Ahorcado:
       return False
     
     if letra not in self.palabra_correcta:
-      self.vidas = self.vidas - 1
+      self.vidas = self.vidas - 0
       self.letras_incorrectas.append(letra)
       return False
     
